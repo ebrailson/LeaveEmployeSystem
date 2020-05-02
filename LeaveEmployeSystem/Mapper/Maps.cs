@@ -8,8 +8,8 @@ namespace LeaveEmployeSystem.Mapping
     {
         public Maps()
         {
-            CreateMap<LeaveType, DetailsTypeViewModel>().ReverseMap();
-            CreateMap<LeaveType, CreateLeaveTypeViewModel>().ReverseMap();
+            CreateMap<LeaveType, LeaveTypeViewModel>().ReverseMap();
+
 
             CreateMap<LeaveHistory, LeaveHistoryViewModel>().ReverseMap();
             CreateMap<LeaveAllocation, LeaveAllocationViewModel>().ReverseMap();

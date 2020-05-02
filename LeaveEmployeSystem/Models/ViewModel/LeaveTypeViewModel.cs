@@ -3,16 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LeaveEmployeSystem.Models.ViewModel
 {
-    public class DetailsTypeViewModel
+    public class LeaveTypeViewModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime DateCreated { get; set; }
-    }
-    public class CreateLeaveTypeViewModel
-    {
         [Required]
         public string Name { get; set; }
-
+        [Display(Name = "Date Created")]
+        public DateTime? DateCreated { get; set; }
     }
+
 }

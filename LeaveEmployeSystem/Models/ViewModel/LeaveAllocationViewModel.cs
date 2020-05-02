@@ -13,7 +13,7 @@ namespace LeaveEmployeSystem.Models.ViewModel
         public DateTime DateCreated { get; set; }
         public EmployeeViewModel Employee { get; set; }
         public string EmployeeId { get; set; }
-        public DetailsTypeViewModel LeaveType { get; set; }
+        public LeaveTypeViewModel LeaveType { get; set; }
         public string LeaveTypeId { get; set; }
 
         //Dropdown

@@ -16,7 +16,7 @@ namespace LeaveEmployeSystem.Models.ViewModel
         [Required]
         public DateTime EndDate { get; set; }
 
-        public DetailsTypeViewModel LeaveType { get; set; }
+        public LeaveTypeViewModel LeaveType { get; set; }
         public int LeaveTypeId { get; set; }
         //Dropdown
         public IEnumerable<SelectListItem> LeaveTypes { get; set; }
