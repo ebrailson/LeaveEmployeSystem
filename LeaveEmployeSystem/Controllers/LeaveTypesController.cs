@@ -2,6 +2,7 @@
 using LeaveEmployeSystem.Data.Entities;
 using LeaveEmployeSystem.Models.ViewModel;
 using LeaveEmployeSystem.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Linq;
 
 namespace LeaveEmployeSystem.Controllers
 {
+    [Authorize(Roles = "Admnistrator")]
     public class LeaveTypesController : Controller
     {
 
@@ -21,6 +23,7 @@ namespace LeaveEmployeSystem.Controllers
             _repo = repo;
         }
 
+
         // GET: LeaveTypes
         public ActionResult Index()
         {
@@ -28,6 +31,7 @@ namespace LeaveEmployeSystem.Controllers
             var model = _mapper.Map<List<LeaveType>, List<LeaveTypeViewModel>>(leaveTypes);
             return View(model);
         }
+
 
         // GET: LeaveTypes/Details/5
         public ActionResult Details(int id)
@@ -42,11 +46,13 @@ namespace LeaveEmployeSystem.Controllers
             return View(model);
         }
 
+
         // GET: LeaveTypes/Create
         public ActionResult Create()
         {
             return View();
         }
+
 
         // POST: LeaveTypes/Create
         [HttpPost]
