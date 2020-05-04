@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LeaveEmployeSystem.Data;
+using LeaveEmployeSystem.Data.Entities;
 using LeaveEmployeSystem.Mapping;
 using LeaveEmployeSystem.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +34,7 @@ namespace LeaveEmployeSystem
             services.AddScoped<ILeaveHistoryRepository, LeaveHistoryRepository>();
             services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
             services.AddAutoMapper(typeof(Maps));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<Employee>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -44,7 +45,7 @@ namespace LeaveEmployeSystem
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,
-            UserManager<IdentityUser> userManager,
+            UserManager<Employee> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())

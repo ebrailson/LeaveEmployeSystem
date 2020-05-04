@@ -1,20 +1,21 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using LeaveEmployeSystem.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace LeaveEmployeSystem
 {
     public static class SeedData
     {
-        public static void Seed(UserManager<IdentityUser> userManager,
+        public static void Seed(UserManager<Employee> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             SeedRoles(roleManager);
             SeedUsers(userManager);
         }
-        private static void SeedUsers(UserManager<IdentityUser> userManager)
+        private static void SeedUsers(UserManager<Employee> userManager)
         {
             if (userManager.FindByNameAsync("admin").Result == null)
             {
-                var user = new IdentityUser { UserName = "admin", Email = "admin@gmail.com" };
+                var user = new Employee { UserName = "admin", Email = "admin@gmail.com" };
                 var result = userManager.CreateAsync(user, "Loveprogram98@").Result;
                 if (result.Succeeded)
                 {

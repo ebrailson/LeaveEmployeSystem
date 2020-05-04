@@ -8,7 +8,7 @@ namespace LeaveEmployeSystem.Data.Entities
     {
         [Key]
         public int Id { get; set; }
-        public int NumberOdDays { get; set; }
+        public int NumberOfDays { get; set; }
         public DateTime DateCreated { get; set; }
         [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
@@ -16,5 +16,6 @@ namespace LeaveEmployeSystem.Data.Entities
         [ForeignKey("LeaveTypeId")]
         public LeaveType LeaveType { get; set; }
         public int LeaveTypeId { get; set; }
+        public int Period { get; set; }
     }
 }

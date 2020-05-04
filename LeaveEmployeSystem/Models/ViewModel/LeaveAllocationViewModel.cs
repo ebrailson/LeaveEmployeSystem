@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,16 +8,41 @@ namespace LeaveEmployeSystem.Models.ViewModel
     {
         public int Id { get; set; }
         [Required]
-        public int NumberOdDays { get; set; }
+        [Display(Name = "Number Of Days")]
+        public int NumberOfDays { get; set; }
         public DateTime DateCreated { get; set; }
+        public int Period { get; set; }
         public EmployeeViewModel Employee { get; set; }
         public string EmployeeId { get; set; }
         public LeaveTypeViewModel LeaveType { get; set; }
-        public string LeaveTypeId { get; set; }
-
-        //Dropdown
-        public IEnumerable<SelectListItem> Employees { get; set; }
-        public IEnumerable<SelectListItem> LeaveTypes { get; set; }
+        public int LeaveTypeId { get; set; }
 
     }
+
+    public class CreateLeaveAllocationTypeViewModel
+    {
+        public int NumberUpdated { get; set; }
+        public List<LeaveTypeViewModel> LeaveType { get; set; }
+    }
+
+    public class EditLeaveAllocationTypeViewModel
+    {
+        public int Id { get; set; }
+        public EmployeeViewModel Employee { get; set; }
+        public string EmployeeId { get; set; }
+        [Required]
+        [Range(1, 25, ErrorMessage = "Please enter valid number")]
+        [Display(Name = "Number Of Days")]
+        public int NumberOfDays { get; set; }
+        public LeaveTypeViewModel LeaveType { get; set; }
+    }
+
+    public class ViewAllocationViewModel
+    {
+        public EmployeeViewModel Employee { get; set; }
+        // public string EmployeeId { get; set; }
+        public List<LeaveAllocationViewModel> LeaveAllocations { get; set; }
+
+    }
+
 }

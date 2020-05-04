@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<Employee> SignInManager
+@inject UserManager<Employee> UserManager
 
 
 <!DOCTYPE html>
@@ -40,9 +40,9 @@
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Manage</a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" asp-controller="LeaveTypes" asp-action="Index">Leave Types</a>
-                                        <a class="dropdown-item" href="#">Leave Allocations</a>
-                                        <a class="dropdown-item" href="#">Leave Allocations</a>
-                                        <a class="dropdown-item" href="#">Employees</a>
+                                        <a class="dropdown-item" asp-controller="LeaveAllocation" asp-action="Index">Leave Allocations</a>
+                                        <a class="dropdown-item" href="#">Leave Applications</a>
+                                        <a class="dropdown-item" asp-controller="LeaveAllocation" asp-action="ListEmployees">Employees</a>
                                     </div>
                                 </li>
                             }

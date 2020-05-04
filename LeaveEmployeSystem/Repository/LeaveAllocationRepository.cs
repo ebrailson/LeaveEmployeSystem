@@ -1,5 +1,7 @@
 ﻿using LeaveEmployeSystem.Data;
 using LeaveEmployeSystem.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,6 +14,15 @@ namespace LeaveEmployeSystem.Repository
         {
             _context = context;
         }
+
+        public bool CheckExistsAllocation(int leaveTypeId, string employee)
+        {
+            var period = DateTime.Now.Year;
+            return FindAll()
+                  .Where(l => l.LeaveTypeId == leaveTypeId && l.EmployeeId == employee && l.Period == period)
+                  .Any();
+        }
+
         public bool Create(LeaveAllocation model)
         {
             _context.LeaveAllocations.Add(model);
@@ -26,18 +37,33 @@ namespace LeaveEmployeSystem.Repository
 
         public ICollection<LeaveAllocation> FindAll()
         {
-            return _context.LeaveAllocations.ToList();
+            return _context.LeaveAllocations
+                .Include(l => l.LeaveType)
+                .Include(l => l.Employee)
+                .ToList();
         }
 
         public LeaveAllocation FindById(int id)
         {
-            var leaveAllocation = _context.LeaveAllocations.FirstOrDefault(l => l.Id == id);
+            var leaveAllocation = _context.LeaveAllocations
+                .Include(l => l.LeaveType)
+                .Include(l => l.Employee)
+                .FirstOrDefault(l => l.Id == id);
             return leaveAllocation;
+        }
+
+
+
+        public ICollection<LeaveAllocation> GetLeaveAllocationById(string id)
+        {
+            var period = DateTime.Now.Year;
+            return FindAll()
+                 .Where(l => l.EmployeeId == id && l.Period == period).ToList();
         }
 
         public bool isExists(int id)
         {
-            var exists = _context.LeaveTypes.Any(l => l.Id == id);
+            var exists = _context.LeaveAllocations.Any(l => l.Id == id);
             return exists;
         }
 
