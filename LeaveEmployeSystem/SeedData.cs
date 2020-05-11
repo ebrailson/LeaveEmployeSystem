@@ -15,7 +15,7 @@ namespace LeaveEmployeSystem
         {
             if (userManager.FindByNameAsync("admin").Result == null)
             {
-                var user = new Employee { UserName = "admin", Email = "admin@gmail.com" };
+                var user = new Employee { UserName = "admin@gmail.com", Email = "admin@gmail.com" };
                 var result = userManager.CreateAsync(user, "Loveprogram98@").Result;
                 if (result.Succeeded)
                 {

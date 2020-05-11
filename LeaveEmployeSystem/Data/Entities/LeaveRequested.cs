@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LeaveEmployeSystem.Data.Entities
 {
-    public class LeaveHistory
+    public class LeaveRequested
     {
         [Key]
         public int Id { get; set; }
@@ -17,16 +17,11 @@ namespace LeaveEmployeSystem.Data.Entities
         public LeaveType LeaveType { get; set; }
         public int LeaveTypeId { get; set; }
         public DateTime DateRequested { get; set; }
-        public DateTime DateActioned { get; set; }
+        public DateTime? DateActioned { get; set; }
         public bool? Approved { get; set; }
         [ForeignKey("ApprovedById")]
         public Employee ApprovedBy { get; set; }
         public string ApprovedById { get; set; }
-
-
-
-
-
 
     }
 }

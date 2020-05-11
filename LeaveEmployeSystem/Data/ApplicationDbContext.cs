@@ -13,12 +13,9 @@ namespace LeaveEmployeSystem.Data
         }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<LeaveType> LeaveTypes { get; set; }
-        public DbSet<LeaveHistory> LeaveHistories { get; set; }
+        public DbSet<LeaveRequested> LeaveRequesteds { get; set; }
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
-        public DbSet<LeaveEmployeSystem.Models.ViewModel.LeaveTypeViewModel> LeaveTypeViewModel { get; set; }
-        public DbSet<LeaveEmployeSystem.Models.ViewModel.EmployeeViewModel> EmployeeViewModel { get; set; }
-        public DbSet<LeaveEmployeSystem.Models.ViewModel.LeaveAllocationViewModel> LeaveAllocationViewModel { get; set; }
-        public DbSet<LeaveEmployeSystem.Models.ViewModel.EditLeaveAllocationTypeViewModel> EditLeaveAllocationTypeViewModel { get; set; }
-        //   public DbSet<LeaveEmployeSystem.Models.ViewModel.LeaveTypeViewModel> DetailsTypeViewModel { get; set; }
+        public DbSet<LeaveEmployeSystem.Models.ViewModel.LeaveRequestViewModel> LeaveRequestViewModel { get; set; }
+
     }
 }

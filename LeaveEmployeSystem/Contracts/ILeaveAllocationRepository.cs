@@ -8,5 +8,8 @@ namespace LeaveEmployeSystem.Repository
     {
         bool CheckExistsAllocation(int leaveTypeId, string employee);
         ICollection<LeaveAllocation> GetLeaveAllocationById(string id);
+        LeaveAllocation GetLeaveAllocationByEmployeeAndType(string employee, int leaveType);
+
+
     }
 }
