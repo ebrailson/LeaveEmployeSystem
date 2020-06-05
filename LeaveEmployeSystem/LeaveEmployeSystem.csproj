@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-LeaveEmployeSystem-AEF6B1B8-25A0-4E35-94D4-E1D5AEADC42F</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20200511212152_init2.cs" />
+    <Compile Remove="Migrations\20200511212152_init2.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
@@ -14,7 +19,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
   </ItemGroup>
 
 </Project>

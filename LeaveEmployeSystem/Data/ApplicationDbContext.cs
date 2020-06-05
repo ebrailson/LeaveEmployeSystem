@@ -1,7 +1,6 @@
 ﻿using LeaveEmployeSystem.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using LeaveEmployeSystem.Models.ViewModel;
 
 namespace LeaveEmployeSystem.Data
 {

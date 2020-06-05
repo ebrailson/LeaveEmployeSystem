@@ -4,14 +4,16 @@ using LeaveEmployeSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LeaveEmployeSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200511212318_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,9 +65,6 @@ namespace LeaveEmployeSystem.Migrations
                     b.Property<string>("ApprovedById")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("Cancelled")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("DateActioned")
                         .HasColumnType("datetime2");
 
@@ -80,9 +79,6 @@ namespace LeaveEmployeSystem.Migrations
 
                     b.Property<string>("RequestingEmployeeId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RequestsComment")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -117,55 +113,6 @@ namespace LeaveEmployeSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("LeaveTypes");
-                });
-
-            modelBuilder.Entity("LeaveEmployeSystem.Models.ViewModel.LeaveRequestViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool?>("Approved")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ApprovedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("Cancelled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("DateActioned")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateRequested")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("LeaveTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RequestingEmployeeId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RequestsComment")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApprovedById");
-
-                    b.HasIndex("LeaveTypeId");
-
-                    b.HasIndex("RequestingEmployeeId");
-
-                    b.ToTable("LeaveRequestViewModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -410,23 +357,6 @@ namespace LeaveEmployeSystem.Migrations
                 });
 
             modelBuilder.Entity("LeaveEmployeSystem.Data.Entities.LeaveRequested", b =>
-                {
-                    b.HasOne("LeaveEmployeSystem.Data.Entities.Employee", "ApprovedBy")
-                        .WithMany()
-                        .HasForeignKey("ApprovedById");
-
-                    b.HasOne("LeaveEmployeSystem.Data.Entities.LeaveType", "LeaveType")
-                        .WithMany()
-                        .HasForeignKey("LeaveTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LeaveEmployeSystem.Data.Entities.Employee", "RequestingEmployee")
-                        .WithMany()
-                        .HasForeignKey("RequestingEmployeeId");
-                });
-
-            modelBuilder.Entity("LeaveEmployeSystem.Models.ViewModel.LeaveRequestViewModel", b =>
                 {
                     b.HasOne("LeaveEmployeSystem.Data.Entities.Employee", "ApprovedBy")
                         .WithMany()

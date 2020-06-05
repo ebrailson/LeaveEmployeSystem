@@ -75,12 +75,18 @@ namespace LeaveEmployeSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateLeaveRequestViewModel model)
         {
+            //var startDate = Convert.ToDateTime(model.StartDate);
+            // var endDate = Convert.ToDateTime(model.EndDate);
             try
             {
-                var endDate = Convert.ToDateTime(model.EndDate);
-                var startDate = Convert.ToDateTime(model.StartDate);
 
                 var leaveTypes = _repoleaveType.FindAll();
+                // Get User current Log In
+                var employee = _userManager.GetUserAsync(User).Result;
+                // Check if his Request is valid and return one record of particular allocation 
+                // that this Employye has for that Leave Type
+                var allocation = _repoLeaveAllocation.GetLeaveAllocationByEmployeeAndType(employee.Id, model.LeaveTypeId);
+                int daysRequested = (int)(model.EndDate - model.StartDate).TotalDays;
                 var leaveTyesItem = leaveTypes.Select(l => new SelectListItem
                 {
                     Text = l.Name,
@@ -88,45 +94,34 @@ namespace LeaveEmployeSystem.Controllers
                 });
 
                 model.LeaveTypes = leaveTyesItem;
-
-                if (!ModelState.IsValid)
+                if (allocation == null)
                 {
-                    return View(model);
+                    ModelState.AddModelError("", "You Have No Days Left");
                 }
-
-
-                if (DateTime.Compare(startDate, endDate) > 1)
+                if (DateTime.Compare(model.StartDate, model.EndDate) > 1)
                 {
-                    ModelState.AddModelError("", "Start Date cannot be further in the future than the End");
-                    return View(model);
+                    ModelState.AddModelError("", "Start Date cannot be further in the future than the End Date");
                 }
-
-                // Get User current Log In
-                var employee = _userManager.GetUserAsync(User).Result;
-
-                // Check if his Request is valid and return one record of particular allocation 
-                // that this Employye has for that Leave Type
-                var allocation = _repoLeaveAllocation.GetLeaveAllocationByEmployeeAndType(employee.Id, model.LeaveTypeId);
-
-                int daysRequested = (int)(startDate - endDate).TotalDays;
-
                 //If the number of days requested exceed the number of days in the allocation 
                 if (daysRequested > allocation.NumberOfDays)
                 {
-                    ModelState.AddModelError("", "You do not Have Suffucient Days for this request");
-
+                    ModelState.AddModelError("", "You Do Not Sufficient Days For This Request");
+                }
+                if (!ModelState.IsValid)
+                {
                     return View(model);
                 }
 
                 var leaveRequestModel = new LeaveRequestViewModel
                 {
                     RequestingEmployeeId = employee.Id,
-                    StartDate = startDate,
-                    EndDate = endDate,
+                    StartDate = model.StartDate,
+                    EndDate = model.EndDate,
                     Approved = null,
                     DateRequested = DateTime.Now,
                     DateActioned = DateTime.Now,
-                    LeaveTypeId = model.LeaveTypeId
+                    LeaveTypeId = model.LeaveTypeId,
+                    RequestsComment = model.RequestsComment
 
                 };
 
@@ -138,7 +133,7 @@ namespace LeaveEmployeSystem.Controllers
                     ModelState.AddModelError("", "Something went wrong");
                     return View(model);
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyLeave));
             }
             catch (Exception ex)
             {
@@ -164,7 +159,7 @@ namespace LeaveEmployeSystem.Controllers
                 var employeeId = leaveRequest.RequestingEmployeeId;
                 var leaveTypeId = leaveRequest.LeaveTypeId;
                 var allocation = _repoLeaveAllocation.GetLeaveAllocationByEmployeeAndType(employeeId, leaveTypeId);
-                // The number of days in the alllcoation less the number of the request
+                // Check if The number of days in the allcoation is less than the number of days in the request
                 int daysRequested = (int)(leaveRequest.EndDate - leaveRequest.StartDate).TotalDays;
                 allocation.NumberOfDays = allocation.NumberOfDays - daysRequested;
 
@@ -205,12 +200,30 @@ namespace LeaveEmployeSystem.Controllers
 
         }
 
-        // GET: LeaveRequest/Create
+        public IActionResult CancelRequest(int id)
+        {
+            var request = _repoLeaveRequest.FindById(id);
+            request.Cancelled = true;
+            _repoLeaveRequest.Update(request);
+            return RedirectToAction("MyLeave");
+        }
 
+        public IActionResult MyLeave()
+        {
+            var employee = _userManager.GetUserAsync(User).Result;
+            var employeeId = employee.Id;
+            var employeeAllocation = _repoLeaveAllocation.GetLeaveAllocationById(employeeId);
+            var employeeRequest = _repoLeaveRequest.GetLeaveRequestedByEmployee(employeeId);
+            var employeeAllocationModel = _mapper.Map<List<LeaveAllocationViewModel>>(employeeAllocation);
+            var employeeRequestModel = _mapper.Map<List<LeaveRequestViewModel>>(employeeRequest);
+            var model = new EmployeeRequestViewModel
+            {
+                LeaveAllocations = employeeAllocationModel,
+                LeaveRequests = employeeRequestModel
+            };
+            return View(model);
 
-
-
-        // GET: LeaveRequest/Edit/5
+        }
         public ActionResult Edit(int id)
         {
             return View();
