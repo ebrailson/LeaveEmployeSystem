@@ -1,5 +1,8 @@
 ﻿@model LeaveEmployeSystem.Models.ViewModel.CreateLeaveRequestViewModel
 
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
 @{
     ViewData["Title"] = "Create";
 }
@@ -23,15 +26,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="StartDate" class="control-label"></label>
-                        <input asp-for="StartDate" class="form-control " />
+                        <input asp-for="StartDate" class="form-control datepicker" />
                         <span asp-validation-for="StartDate" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label asp-for="EndDate" class="control-label"></label>
-                        <input asp-for="EndDate" class="form-control " />
+                        <label asp-for="EndDate" class="control-label "></label>
+                        <input asp-for="EndDate" class="form-control datepicker" />
                         <span asp-validation-for="EndDate" class="text-danger"></span>
                     </div>
                 </div>
@@ -55,13 +58,14 @@
 <div>
 
 </div>
-
-@section Scripts{
-    <script>
-        $(function () {
-            $(".datepicker").datepicker({
-                dateFomat: "dd-mm-yy"
+@*
+    @section Scripts{
+        <script>
+            $(function () {
+                $(".datepicker").datepicker({
+                    dateFomat: "dd-mm-yy"
+                });
             });
-        });
-    </script>
-}
+        </script>
+    }
+*@

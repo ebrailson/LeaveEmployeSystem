@@ -79,14 +79,15 @@ namespace LeaveEmployeSystem.Controllers
             // var endDate = Convert.ToDateTime(model.EndDate);
             try
             {
-
+                var startDate = Convert.ToDateTime(model.StartDate);
+                var endDate = Convert.ToDateTime(model.EndDate);
                 var leaveTypes = _repoleaveType.FindAll();
                 // Get User current Log In
                 var employee = _userManager.GetUserAsync(User).Result;
                 // Check if his Request is valid and return one record of particular allocation 
                 // that this Employye has for that Leave Type
                 var allocation = _repoLeaveAllocation.GetLeaveAllocationByEmployeeAndType(employee.Id, model.LeaveTypeId);
-                int daysRequested = (int)(model.EndDate - model.StartDate).TotalDays;
+                int daysRequested = (int)(endDate - startDate).TotalDays;
                 var leaveTyesItem = leaveTypes.Select(l => new SelectListItem
                 {
                     Text = l.Name,
@@ -98,7 +99,7 @@ namespace LeaveEmployeSystem.Controllers
                 {
                     ModelState.AddModelError("", "You Have No Days Left");
                 }
-                if (DateTime.Compare(model.StartDate, model.EndDate) > 1)
+                if (DateTime.Compare(startDate, endDate) > 1)
                 {
                     ModelState.AddModelError("", "Start Date cannot be further in the future than the End Date");
                 }
@@ -115,8 +116,8 @@ namespace LeaveEmployeSystem.Controllers
                 var leaveRequestModel = new LeaveRequestViewModel
                 {
                     RequestingEmployeeId = employee.Id,
-                    StartDate = model.StartDate,
-                    EndDate = model.EndDate,
+                    StartDate = startDate,
+                    EndDate = endDate,
                     Approved = null,
                     DateRequested = DateTime.Now,
                     DateActioned = DateTime.Now,

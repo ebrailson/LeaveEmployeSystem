@@ -58,12 +58,12 @@ namespace LeaveEmployeSystem.Models.ViewModel
         [DisplayName("Start Date")]
         [Required]
         [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
         [DisplayName("End Date")]
         [Required]
         [DataType(DataType.Date)]
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
         [MaxLength(200)]
         [DisplayName("Request Comments")]
         public string RequestsComment { get; set; }
