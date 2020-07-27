@@ -141,30 +141,30 @@ namespace LeaveEmployeSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // POST: LeaveTypes/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, LeaveTypeViewModel model)
-        {
-            try
-            {
-                var leaveType = _repo.FindById(id);
-                if (leaveType == null)
-                {
-                    return NotFound();
-                }
-                var isSucces = _repo.Delete(leaveType);
-                if (!isSucces)
-                {
-                    return View(model);
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                ModelState.AddModelError("", "Something went wrong...");
-                return View(model);
-            }
-        }
+        //// POST: LeaveTypes/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, LeaveTypeViewModel model)
+        //{
+        //    try
+        //    {
+        //        var leaveType = _repo.FindById(id);
+        //        if (leaveType == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        var isSucces = _repo.Delete(leaveType);
+        //        if (!isSucces)
+        //        {
+        //            return View(model);
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        ModelState.AddModelError("", "Something went wrong...");
+        //        return View(model);
+        //    }
+        //}
     }
 }

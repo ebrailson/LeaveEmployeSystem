@@ -77,7 +77,8 @@ namespace LeaveEmployeSystem.Controllers
         // GET: LeaveAlloctaion/Details/5
         public IActionResult Details(string id)
         {
-            var employee = _mapper.Map<EmployeeViewModel>(_userManager.FindByIdAsync(id).Result);
+            var getEmployee = _userManager.FindByIdAsync(id).Result;
+            var employee = _mapper.Map<EmployeeViewModel>(getEmployee);
             var allocations = _mapper.Map<List<LeaveAllocationViewModel>>(_repoLeaveAllocation.GetLeaveAllocationById(id));
             var model = new ViewAllocationViewModel
             {
